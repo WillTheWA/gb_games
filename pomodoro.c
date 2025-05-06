@@ -12,8 +12,10 @@ void main(void)
 
     // Start game loop
     while(1) {
-		// Game main loop processing goes here
-        // Increment frame counter
+	// Game main loop processing goes here
+	cls();
+	    
+	// Increment frame counter
         frame_count++;
 
         // Check if 60 frames have passed (roughly 1 second)
