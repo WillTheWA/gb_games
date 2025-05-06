@@ -9,7 +9,7 @@ compile.bat: Makefile
 	@make -sn | sed y/\\//\\\\/ | grep -v make >> compile.bat
 
 # Compile and link pomodoro.c and typeset.c into pomodoro.gb
-pomodoro.gb: pomodoro.c typeset.c
+pomodoro.gb: pomodoro.c typeset.c background_data.c background_map.c
 	$(CC) -o $@ $^
 
 clean:
