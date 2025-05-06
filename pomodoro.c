@@ -1,5 +1,4 @@
 #include <gb/gb.h>
-#include <stdint.h>
 #include <stdio.h>
 
 unsigned int frame_count = 0;
@@ -12,6 +11,7 @@ void main(void)
 
     // Start game loop
     while(1) {
+        // Clear the screen before printing new data
         // Increment frame counter
         frame_count++;
 
@@ -21,29 +21,20 @@ void main(void)
             seconds++;        // Increment seconds
         }
 
-        // Timer printing logic
+        // Calculate minutes and seconds
         unsigned int min_temp = seconds / 60;
         unsigned int sec_temp = seconds % 60;
-        char timer_str[6];  // Array to hold the formatted timer string
 
-        if (min_temp < 10 && sec_temp < 10)
-            sprintf(timer_str, "0%u:0%u", min_temp, sec_temp);
+        // Print the time with leading zeros
+        if (min_temp < 10 && sec_temp < 10) 
+            printf("0%u:0%u", min_temp, sec_temp);
         else if (min_temp < 10)
-            sprintf(timer_str, "0%u:%u", min_temp, sec_temp);
+            printf("0%u:%u", min_temp, sec_temp);
         else
-            sprintf(timer_str, "%u:%u", min_temp, sec_temp);
+            printf("%u:%u", min_temp, sec_temp);
 
-        // Clear the background area (if needed)
-        unsigned char blank_tile = 0;
-        for (unsigned char y = 0; y < 18; y++) {
-            for (unsigned char x = 0; x < 20; x++) {
-                set_bkg_tiles(x, y, 1, 1, &blank_tile);
-            }
-        }
-
-        // Set the timer string in the background area (at position 0,0)
-        set_bkg_tiles(0, 0, 6, 1, timer_str);
-
+        gotoxy(0, 0);
+        
         // Synchronize with the screen refresh rate
         vsync();
     }
