@@ -11,6 +11,7 @@
 
 // Clear screen by filling it with blank tiles
 void clear_screen() {
+    set_bkg_data(0, 44, Typeset);
     static unsigned char tile_map[SCREEN_WIDTH * SCREEN_HEIGHT];
     for (int i = 0; i < SCREEN_WIDTH * SCREEN_HEIGHT; i++) {
         tile_map[i] = TILE_BLANK;
@@ -20,13 +21,14 @@ void clear_screen() {
 
 // Display splash screen
 void splash_screen() {
+    set_bkg_data(0, 44, Typeset);
     unsigned char pomodoro_map[] = {15, 14, 12, 14, 3, 14, 17, 14};
     unsigned char timer_map[] = {19, 8, 12, 4, 17, 42};
     unsigned char start_map[] = {18, 19, 0, 17, 19};
 
-    set_bkg_tiles(6, 4, sizeof(pomodoro_map), 1, pomodoro_map);
-    set_bkg_tiles(7, 5, sizeof(timer_map), 1, timer_map);
-    set_bkg_tiles(7, 10, sizeof(start_map), 1, start_map);
+    set_bkg_tiles(6, 4, 8, 1, pomodoro_map);
+    set_bkg_tiles(7, 5, 6, 1, timer_map);
+    set_bkg_tiles(7, 10, 5, 1, start_map);
 
     // Wait until start is pressed and released
     waitpad(J_START);
@@ -35,6 +37,7 @@ void splash_screen() {
 // Main game loop
 void game_loop() {
     // Draw background
+    set_bkg_data(44, 227, background_data);
     set_bkg_tiles(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, background_map);
 
     while (1) {
@@ -45,10 +48,6 @@ void game_loop() {
 
 // Entry point
 void main(void) {
-    // Load tile data into VRAM
-    set_bkg_data(0, 44, Typeset);
-    set_bkg_data(44, 227, background_data);
-    
     SHOW_BKG;
     DISPLAY_ON;
 
