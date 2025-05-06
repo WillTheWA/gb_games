@@ -26,14 +26,12 @@ void main(void)
         unsigned int sec_temp = seconds % 60;
 
         // Print the time with leading zeros
-        if (min_temp < 10 && sec_temp < 10) 
+	if (min_temp < 10 && sec_temp < 10) 
             printf("0%u:0%u", min_temp, sec_temp);
         else if (min_temp < 10)
             printf("0%u:%u", min_temp, sec_temp);
         else
             printf("%u:%u", min_temp, sec_temp);
-
-        gotoxy(0, 0);
         
         // Synchronize with the screen refresh rate
         vsync();
