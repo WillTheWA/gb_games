@@ -1,6 +1,7 @@
 #include <gb/gb.h>
 #include <stdint.h>
 #include "typeset.h"
+#include "numset.h"
 #include "background_data.c"
 #include "background_map.c"
 
@@ -30,20 +31,8 @@ void splash_screen() {
     set_bkg_tiles(7, 5, 6, 1, timer_map);
     set_bkg_tiles(7, 10, 5, 1, start_map);
 
-    // Wait until start is pressed and released
+    // Wait until start is pressed
     waitpad(J_START);
-}
-
-// Main game loop
-void game_loop() {
-    // Load the background tiles and map
-    set_bkg_data(0, 227, background_data);  // Loading 227 background tiles
-    set_bkg_tiles(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, background_map);  // Set background map
-
-    while (1) {
-        wait_vbl_done();
-        // Game logic here...
-    }
 }
 
 // Entry point
@@ -56,10 +45,12 @@ void main(void) {
     
     // Load the background tiles and map
     set_bkg_data(0, 227, background_data);  // Loading 227 background tiles
+    set_bkg_data(227, 11, Numset);          // Load the timer specific number tiles
     set_bkg_tiles(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, background_map);  // Set background map
 
     // Main game loop
     while (1) {
+        // Timer logic goes here
         wait_vbl_done();
     }
 }
