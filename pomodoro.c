@@ -1,6 +1,8 @@
 #include <gb/gb.h>
 #include <stdint.h>
 #include "typeset.h"
+#include "background_data.c"
+#include "background_map.c"
 
 void clear_screen() {
 	// Create an array to fill the entire screen with the blank tile (index 44)
@@ -26,9 +28,20 @@ void splash_screen() {
 	waitpad(J_START);	
 }
 
+void game_loop() {
+	// Set game background
+	set_bkg_tiles(0, 0, 20, 18, background_map);
+
+    	// Game loop
+    	while(1) {	
+        	wait_vbl_done();
+    	}
+}
+
 void main(void) {
     	// Load the tile set into VRAM
     	set_bkg_data(0, 44, Typeset);
+	set_bkg_data(0, 114, background_data);
     	clear_screen();
 
 	// Set splash screen
@@ -38,8 +51,5 @@ void main(void) {
     	SHOW_BKG;
     	DISPLAY_ON;
 
-    	// Game loop
-    	while(1) {
-        	wait_vbl_done();
-    	}
+	game_loop();
 }
