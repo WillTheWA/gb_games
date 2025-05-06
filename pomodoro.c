@@ -24,7 +24,6 @@ void main(void)
         // Calculate minutes and seconds
         unsigned int min_temp = seconds / 60;
         unsigned int sec_temp = seconds % 60;
-	gotcharxy(0, 0);
 	    
         // Print the time with leading zeros
 	if (min_temp < 10 && sec_temp < 10) 
@@ -33,7 +32,10 @@ void main(void)
             printf("0%u:%u", min_temp, sec_temp);
         else
             printf("%u:%u", min_temp, sec_temp);
-        
+
+	for (int i = 0; i < 71; i++)
+	    printf("     ");
+	    
         // Synchronize with the screen refresh rate
         vsync();
     }
