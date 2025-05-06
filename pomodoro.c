@@ -37,7 +37,7 @@ void splash_screen() {
 // Main game loop
 void game_loop() {
     // Load the background tiles and map
-    set_bkg_data(44, 227, background_data);  // Loading 227 background tiles
+    set_bkg_data(0, 227, background_data);  // Loading 227 background tiles
     set_bkg_tiles(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, background_map);  // Set background map
 
     while (1) {
@@ -53,5 +53,13 @@ void main(void) {
 
     clear_screen();  // Clear with blank tiles
     splash_screen();  // Show splash screen
-    game_loop();      // Start the main game loop
+    
+    // Load the background tiles and map
+    set_bkg_data(0, 227, background_data);  // Loading 227 background tiles
+    set_bkg_tiles(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, background_map);  // Set background map
+
+    // Main game loop
+    while (1) {
+        wait_vbl_done();
+    }
 }
