@@ -4,52 +4,58 @@
 #include "background_data.c"
 #include "background_map.c"
 
+// Constants
+#define TILE_BLANK 44
+#define SCREEN_WIDTH 20
+#define SCREEN_HEIGHT 18
+
+// Clear screen by filling it with blank tiles
 void clear_screen() {
-	// Create an array to fill the entire screen with the blank tile (index 44)
-    	unsigned char tile_map[20 * 18];    // Screen size is 20x18 tiles
-    	for (int i = 0; i < 20 * 18; i++) {
-        	tile_map[i] = 44;               // Set every tile to the blank character (index 44)
-    	}
-
-    	// Set the background with the blank character for the entire screen
-    	set_bkg_tiles(0, 0, 20, 18, tile_map);
+    static unsigned char tile_map[SCREEN_WIDTH * SCREEN_HEIGHT];
+    for (uint8_t i = 0; i < SCREEN_WIDTH * SCREEN_HEIGHT; i++) {
+        tile_map[i] = TILE_BLANK;
+    }
+    set_bkg_tiles(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, tile_map);
 }
 
+// Display splash screen
 void splash_screen() {
-	unsigned char pomodoro_map[] = {15, 14, 12, 14, 3, 14, 17, 14}; // POMODORO
-    	unsigned char timer_map[] = {19, 8, 12, 4, 17, 42}; // TIMER!
-    	unsigned char start_map[] = {18, 19, 0, 17, 19}; // START
+    // "POMODORO", "TIMER!", "START"
+    unsigned char pomodoro_map[] = {15, 14, 12, 14, 3, 14, 17, 14};
+    unsigned char timer_map[] = {19, 8, 12, 4, 17, 42};
+    unsigned char start_map[] = {18, 19, 0, 17, 19};
 
-	// Write pomodoro timer
-        set_bkg_tiles(6, 4, 8, 1, pomodoro_map);
-        set_bkg_tiles(7, 5, 6, 1, timer_map);
-	set_bkg_tiles(7, 10, 6, 1, start_map);
+    set_bkg_tiles(6, 4, sizeof(pomodoro_map), 1, pomodoro_map);
+    set_bkg_tiles(7, 5, sizeof(timer_map), 1, timer_map);
+    set_bkg_tiles(7, 10, sizeof(start_map), 1, start_map);
 
-	waitpad(J_START);	
+    // Wait until start is pressed and released
+    waitpad(J_START);
+    waitpadup();
 }
 
+// Main game loop
 void game_loop() {
-	// Set game background
-	set_bkg_tiles(0, 0, 20, 18, background_map);
+    // Draw background
+    set_bkg_tiles(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, background_map);
 
-    	// Game loop
-    	while(1) {	
-        	wait_vbl_done();
-    	}
+    while (1) {
+        wait_vbl_done();
+        // Game logic here...
+    }
 }
 
+// Entry point
 void main(void) {
-    	// Load the tile set into VRAM
-    	set_bkg_data(0, 44, Typeset);
-	set_bkg_data(0, 114, background_data);
-    	clear_screen();
+    // Load tile data into VRAM
+    set_bkg_data(0, TILE_BLANK, Typeset);
+    set_bkg_data(TILE_BLANK, 114, background_data);  // Load after blank tiles
 
-	// Set splash screen
-	splash_screen();
+    SHOW_BKG;
+    DISPLAY_ON;
 
-    	// Turn on the background and display
-    	SHOW_BKG;
-    	DISPLAY_ON;
-
-	game_loop();
+    clear_screen();
+    splash_screen();
+    game_loop();
 }
+
