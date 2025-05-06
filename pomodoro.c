@@ -10,10 +10,13 @@ void main(void)
     // Turn on display
     DISPLAY_ON;
 
+    // Set up window
+    SHOW_WIN;
+    set_win_tiles(0, 0, 20, 1, "                    ");  // Initialize window area with blank spaces
+
     // Start game loop
     while(1) {
-	// Game main loop processing goes here
-	// Increment frame counter
+        // Increment frame counter
         frame_count++;
 
         // Check if 60 frames have passed (roughly 1 second)
@@ -25,14 +28,19 @@ void main(void)
         // Timer printing logic
         unsigned int min_temp = seconds / 60;
         unsigned int sec_temp = seconds % 60;
-        if (min_temp < 10 && sec_temp < 10) 
-            printf("0%u:0%u", min_temp, sec_temp);
-        else if (min_temp < 10)
-            printf("0%u:%u", min_temp, sec_temp);
-        else
-            printf("%u:%u", min_temp, sec_temp);
+        char timer_str[6];  // Array to hold the formatted timer string
 
-        // Sync screen and refresh rate
+        if (min_temp < 10 && sec_temp < 10)
+            sprintf(timer_str, "0%u:0%u", min_temp, sec_temp);
+        else if (min_temp < 10)
+            sprintf(timer_str, "0%u:%u", min_temp, sec_temp);
+        else
+            sprintf(timer_str, "%u:%u", min_temp, sec_temp);
+
+        // Set the timer string in the window area (at position 0,0 in the window)
+        set_win_tiles(0, 0, 6, 1, timer_str);
+
+        // Synchronize with the screen refresh rate
         vsync();
     }
 }
