@@ -44,15 +44,15 @@ void main(void) {
     splash_screen();  // Show splash screen
     
     // Load tiles
-    set_bkg_data(0, 11, Numset);    // Load the timer specific number tiles 0-9, :, and a black tile
-    set_bkg_data(11, 227, background_data);  // Loading 227 background tiles
+    set_bkg_data(0, 227, background_data);  // Loading 227 background tiles
+    set_bkg_data(227, 11, Numset);
 
     // Draw background map
     set_bkg_tiles(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, background_map);
     
     // Draw timer
-    unsigned char game_timer_map[] = {10};
-    set_bkg_tiles(20, 18, 1, 1, game_timer_map);
+    unsigned char game_timer_map[] = {237};
+    set_bkg_tiles(19, 17, 1, 1, game_timer_map);
 
     // Main game loop
     while (1) {
