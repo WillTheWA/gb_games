@@ -13,8 +13,6 @@ void main(void)
     // Start game loop
     while(1) {
 	// Game main loop processing goes here
-	cls();
-	    
 	// Increment frame counter
         frame_count++;
 
