@@ -26,7 +26,7 @@ void splash_screen() {
     unsigned char timer_map[] = {19, 8, 12, 4, 17, 42};
     unsigned char start_map[] = {18, 19, 0, 17, 19};
 
-    set_bkg_tiles(6, 4, 8, 1, pomodoro_map);
+    set_bkg_tiles(6, 4, 8, 1, pomodoro_map);  // Correct tile count here
     set_bkg_tiles(7, 5, 6, 1, timer_map);
     set_bkg_tiles(7, 10, 5, 1, start_map);
 
@@ -36,9 +36,9 @@ void splash_screen() {
 
 // Main game loop
 void game_loop() {
-    // Draw background
-    set_bkg_data(44, 227, background_data);
-    set_bkg_tiles(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, background_map);
+    // Load the background tiles and map
+    set_bkg_data(44, 227, background_data);  // Loading 227 background tiles
+    set_bkg_tiles(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, background_map);  // Set background map
 
     while (1) {
         wait_vbl_done();
@@ -51,8 +51,7 @@ void main(void) {
     SHOW_BKG;
     DISPLAY_ON;
 
-    clear_screen();
-    splash_screen();
-    game_loop();
+    clear_screen();  // Clear with blank tiles
+    splash_screen();  // Show splash screen
+    game_loop();      // Start the main game loop
 }
-
