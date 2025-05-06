@@ -8,8 +8,8 @@ compile.bat: Makefile
 	@echo "REM Automatically generated from Makefile" > compile.bat
 	@make -sn | sed y/\\//\\\\/ | grep -v make >> compile.bat
 
-# Compile and link pomodoro.c and typeset.c into pomodoro.gb
-pomodoro.gb: pomodoro.c typeset.c background_data.c background_map.c
+# Compile and link pomodoro.c, typeset.c, numset.c into pomodoro.gb
+pomodoro.gb: pomodoro.c typeset.c numset.c
 	$(CC) -o $@ $^
 
 clean:
