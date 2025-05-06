@@ -1,17 +1,16 @@
-CC	= ../../../bin/lcc
+CC = ../../../bin/lcc
 
-BINS	= pomodoro.gb
+BINS = pomodoro.gb
 
-all:	$(BINS)
+all: $(BINS)
 
 compile.bat: Makefile
 	@echo "REM Automatically generated from Makefile" > compile.bat
 	@make -sn | sed y/\\//\\\\/ | grep -v make >> compile.bat
 
-# Compile and link single file in one pass
-%.gb:	%.c
-	$(CC) -o $@ $<
+# Compile and link pomodoro.c and typeset.c into pomodoro.gb
+pomodoro.gb: pomodoro.c typeset.c
+	$(CC) -o $@ $^
 
 clean:
 	rm -f *.o *.lst *.map *.gb *~ *.rel *.cdb *.ihx *.lnk *.sym *.asm *.noi
-
