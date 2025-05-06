@@ -45,11 +45,13 @@ void main(void) {
     
     // Load tiles
     set_bkg_data(0, 227, background_data);  // Loading 227 background tiles
-    set_bkg_data(227, 11, Numset);
-
+    
     // Draw background map
     set_bkg_tiles(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, background_map);
     
+    // Load Numset after background map
+    set_bkg_data(227, 11, Numset);
+
     // Draw timer
     unsigned char game_timer_map[] = {237};
     set_bkg_tiles(19, 17, 1, 1, game_timer_map);
