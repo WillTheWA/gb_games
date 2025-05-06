@@ -43,10 +43,16 @@ void main(void) {
     clear_screen();  // Clear with blank tiles
     splash_screen();  // Show splash screen
     
-    // Load the background tiles and map
-    set_bkg_data(0, 227, background_data);  // Loading 227 background tiles
-    set_bkg_data(227, 11, Numset);          // Load the timer specific number tiles
-    set_bkg_tiles(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, background_map);  // Set background map
+    // Load tiles
+    set_bkg_data(0, 11, Numset);    // Load the timer specific number tiles 0-9, :, and a black tile
+    set_bkg_data(11, 227, background_data);  // Loading 227 background tiles
+
+    // Draw background map
+    set_bkg_tiles(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, background_map);
+    
+    // Draw timer
+    unsigned char game_timer_map[] = {10};
+    set_bkg_tiles(20, 18, 1, 1, game_timer_map);
 
     // Main game loop
     while (1) {
