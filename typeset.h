@@ -10,7 +10,7 @@
   Compression          : None.
   Counter              : None.
   Tile size            : 8 x 8
-  Tiles                : 0 to 43
+  Tiles                : 0 to 44
 
   Palette colors       : None.
   SGB Palette          : None.
@@ -26,9 +26,9 @@
 #define __typeset_h_INCLUDE
 
 /* Bank of tiles. */
-#define TypesetBank 0
+#define TyepsetBank 0
 /* Start of tile array. */
-extern const unsigned char Typeset[];
+extern const unsigned char Tyepset[];
 
 #endif
 
