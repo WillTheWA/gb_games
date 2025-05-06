@@ -10,10 +10,6 @@ void main(void)
     // Turn on display
     DISPLAY_ON;
 
-    // Set up window
-    SHOW_WIN;
-    set_win_tiles(0, 0, 20, 1, "                    ");  // Initialize window area with blank spaces
-
     // Start game loop
     while(1) {
         // Increment frame counter
@@ -37,8 +33,16 @@ void main(void)
         else
             sprintf(timer_str, "%u:%u", min_temp, sec_temp);
 
-        // Set the timer string in the window area (at position 0,0 in the window)
-        set_win_tiles(0, 0, 6, 1, timer_str);
+        // Clear the background area (if needed)
+        unsigned char blank_tile = 0;
+        for (unsigned char y = 0; y < 18; y++) {
+            for (unsigned char x = 0; x < 20; x++) {
+                set_bkg_tiles(x, y, 1, 1, &blank_tile);
+            }
+        }
+
+        // Set the timer string in the background area (at position 0,0)
+        set_bkg_tiles(0, 0, 6, 1, timer_str);
 
         // Synchronize with the screen refresh rate
         vsync();
