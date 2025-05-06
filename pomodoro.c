@@ -28,8 +28,8 @@ void main(void) {
     
     while(1) {
 	// Write pomodoro timer
-        set_bkg_tiles(0, 0, 8, 1, pomodoro_map);
-        set_bkg_tiles(0, 1, 6, 1, timer_map);
+        set_bkg_tiles(6, 11, 8, 1, pomodoro_map);
+        set_bkg_tiles(7, 12, 6, 1, timer_map);
         wait_vbl_done();
     }
 }
