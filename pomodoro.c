@@ -16,6 +16,20 @@
 #define TIMER_Y 9
 #define NUM_OFFSET 227
 
+// Number lookup table
+unsigned char number_tiles[10] = {
+    237, // 0
+    228, // 1
+    229, // 2
+    230, // 3
+    231, // 4
+    232, // 5
+    233, // 6
+    234, // 7
+    235, // 8
+    236  // 9
+};
+
 // Clear screen by filling it with blank tiles
 void clear_screen() {
     set_bkg_data(0, 44, Typeset);
@@ -41,9 +55,10 @@ void splash_screen() {
     waitpad(J_START);
 }
 
-unsigned char* convert_num(int num) {
-	unsigned char temp[] = {num + NUM_OFFSET};
-	return temp;
+// Convert 2-digit number (like minutes or seconds) to 2 tiles
+void convert_2digit_to_tiles(unsigned int num, unsigned char* out) {
+    out[0] = number_tiles[(num / 10) % 10];
+    out[1] = number_tiles[num % 10];
 }
 
 // Entry point
@@ -63,16 +78,47 @@ void main(void) {
     // Load Numset after background map
     set_bkg_data(227, 12, Numset);
 
-    // Draw timer
-    unsigned char game_timer_map[] = {237, 237, 238, 237, 237};
-    set_bkg_tiles(TIMER_1X, TIMER_Y, 5, 1, game_timer_map);
+    // Timer start time
+    unsigned int minutes = 25;
+    unsigned int seconds = 0;
 
-    // Main game loop
+    // Set min and sec tiles
+    unsigned char min_tiles[2];
+    unsigned char sec_tiles[2];
+
     while (1) {
-        set_bkg_tiles(TIMER_1X, TIMER_Y, 1, 1, convert_num(1));
-	set_bkg_tiles(TIMER_2X, TIMER_Y, 1, 1, convert_num(2));
-	set_bkg_tiles(TIMER_3X, TIMER_Y, 1, 1, convert_num(3));
-	set_bkg_tiles(TIMER_4X, TIMER_Y, 1, 1, convert_num(4));
-        wait_vbl_done();
+        // Convert minutes and seconds to tile data
+        convert_2digit_to_tiles(minutes, min_tiles);
+        convert_2digit_to_tiles(seconds, sec_tiles);
+
+        // Set background tiles for MM:SS at the right positions
+        set_bkg_tiles(TIMER_1X, TIMER_Y, 1, 1, &min_tiles[0]);
+        set_bkg_tiles(TIMER_2X, TIMER_Y, 1, 1, &min_tiles[1]);
+
+        // Colon in between MM and SS (use tile 238, or whatever colon is)
+        set_bkg_tiles(14, TIMER_Y, 1, 1, (unsigned char[]){238});  // colon tile
+
+        set_bkg_tiles(TIMER_3X, TIMER_Y, 1, 1, &sec_tiles[0]);
+        set_bkg_tiles(TIMER_4X, TIMER_Y, 1, 1, &sec_tiles[1]);
+
+        // Delay ~1 second (this is a rough approximation)
+        for (int i = 0; i < 60; i++) {
+            wait_vbl_done();
+        }
+
+        // Countdown logic
+        if (seconds == 0) {
+            if (minutes == 0) {
+                // Timer done
+                break;
+            } else {
+                minutes--;
+                seconds = 59;
+            }
+        } else {
+            seconds--;
+        }
     }
+
+    // Optional: show "done" screen or flash zero
 }
