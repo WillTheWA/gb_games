@@ -50,10 +50,10 @@ void main(void) {
     set_bkg_tiles(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, background_map);
     
     // Load Numset after background map
-    set_bkg_data(0, 11, Numset);
+    set_bkg_data(227, 12, Numset);
 
     // Draw timer
-    unsigned char game_timer_map[] = {0, 0, 10, 0, 0};
+    unsigned char game_timer_map[] = {237, 237, 238, 237, 237};
     set_bkg_tiles(12, 9, 5, 1, game_timer_map);
 
     // Main game loop
