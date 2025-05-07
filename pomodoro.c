@@ -9,6 +9,12 @@
 #define TILE_BLANK 44
 #define SCREEN_WIDTH 20
 #define SCREEN_HEIGHT 18
+#define TIMER_1X 12
+#define TIMER_2X 13
+#define TIMER_3X 15
+#define TIMER_4X 16
+#define TIMER_Y 9
+#define NUM_OFFSET 227
 
 // Clear screen by filling it with blank tiles
 void clear_screen() {
@@ -35,6 +41,11 @@ void splash_screen() {
     waitpad(J_START);
 }
 
+unsigned char* convert_num(int num) {
+	unsigned char temp[] = {num + NUM_OFFSET};
+	return temp;
+}
+
 // Entry point
 void main(void) {
     SHOW_BKG;
@@ -54,11 +65,14 @@ void main(void) {
 
     // Draw timer
     unsigned char game_timer_map[] = {237, 237, 238, 237, 237};
-    set_bkg_tiles(12, 9, 5, 1, game_timer_map);
+    set_bkg_tiles(TIMER_1X, TIMER_Y, 5, 1, game_timer_map);
 
     // Main game loop
     while (1) {
-        // Timer logic goes here
+        set_bkg_tiles(TIMER_1X, TIMER_Y, 1, 1, convert_num(1));
+	set_bkg_tiles(TIMER_2X, TIMER_Y, 1, 1, convert_num(2));
+	set_bkg_tiles(TIMER_3X, TIMER_Y, 1, 1, convert_num(3));
+	set_bkg_tiles(TIMER_4X, TIMER_Y, 1, 1, convert_num(4));
         wait_vbl_done();
     }
 }
