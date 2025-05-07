@@ -81,6 +81,7 @@ void main(void) {
     // Timer start time
     unsigned int minutes = 25;
     unsigned int seconds = 0;
+    unsigned int cycle = 0;
 
     // Set min and sec tiles
     unsigned char min_tiles[2];
@@ -110,8 +111,15 @@ void main(void) {
         if (seconds == 0) {
             if (minutes == 0) {
                 // Timer done
-                // Need to implement pomodoro logic (s_rest, l_rest)
-                break;
+                cycle++;
+                if (cycle == 1 || cycle == 3 || cycle == 5) {
+                    minutes = 5;
+                } else if (cycle == 7) {
+                    minutes = 15;
+                    cycle = 0;
+                } else 
+                    minutes = 25;
+                waitpad(J_A);
             } else {
                 minutes--;
                 seconds = 59;
