@@ -110,6 +110,7 @@ void main(void) {
         if (seconds == 0) {
             if (minutes == 0) {
                 // Timer done
+                // Need to implement pomodoro logic (s_rest, l_rest)
                 break;
             } else {
                 minutes--;
@@ -119,6 +120,4 @@ void main(void) {
             seconds--;
         }
     }
-
-    // Optional: show "done" screen or flash zero
 }
