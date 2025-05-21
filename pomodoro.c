@@ -140,7 +140,7 @@ void main(void) {
         // Set sprite tiles (digits are 0–9, and you loaded Numset at 227)
         set_sprite_tile(SPRITE_MIN_L, min_digits[0]);
         set_sprite_tile(SPRITE_MIN_R, min_digits[1]);
-        set_sprite_tile(SPRITE_COLON, 11);
+        set_sprite_tile(SPRITE_COLON, 238);
         set_sprite_tile(SPRITE_SEC_L, sec_digits[0]);
         set_sprite_tile(SPRITE_SEC_R, sec_digits[1]);
 
