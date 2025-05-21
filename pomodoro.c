@@ -18,11 +18,11 @@
 #define SPRITE_SEC_R 4
 // Screen pixel positions (Sequential 8)
 #define SPRITE_Y 81
-#define SPRITE_MIN_L_X 68
-#define SPRITE_MIN_R_X 76
-#define SPRITE_COLON_X 84
-#define SPRITE_SEC_L_X 92
-#define SPRITE_SEC_R_X 100
+#define SPRITE_MIN_L_X 64
+#define SPRITE_MIN_R_X 72
+#define SPRITE_COLON_X 80
+#define SPRITE_SEC_L_X 88
+#define SPRITE_SEC_R_X 96
 
 // Number lookup table
 unsigned char number_tiles[10] = {
