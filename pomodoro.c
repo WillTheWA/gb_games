@@ -24,20 +24,6 @@
 #define SPRITE_SEC_L_X 88
 #define SPRITE_SEC_R_X 96
 
-// Number lookup table
-unsigned char number_tiles[10] = {
-    237, // 0
-    228, // 1
-    229, // 2
-    230, // 3
-    231, // 4
-    232, // 5
-    233, // 6
-    234, // 7
-    235, // 8
-    236  // 9
-};
-
 // Time delay function
 void pdelay(UINT8 numloops) {
     UINT8 ii;
@@ -133,7 +119,7 @@ void main(void) {
     set_bkg_tiles(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, background_map);
     
     // Load Numset after background map as sprites for positioning
-    set_sprite_data(227, 12, Numset);
+    set_sprite_data(227, 11, Numset);
 
     // Timer start time
     unsigned int minutes = 25;
@@ -154,7 +140,7 @@ void main(void) {
         // Set sprite tiles (digits are 0–9, and you loaded Numset at 227)
         set_sprite_tile(SPRITE_MIN_L, min_digits[0]);
         set_sprite_tile(SPRITE_MIN_R, min_digits[1]);
-        set_sprite_tile(SPRITE_COLON, 10);
+        set_sprite_tile(SPRITE_COLON, 11);
         set_sprite_tile(SPRITE_SEC_L, sec_digits[0]);
         set_sprite_tile(SPRITE_SEC_R, sec_digits[1]);
 
