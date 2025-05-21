@@ -26,9 +26,9 @@
 #define __numset_h_INCLUDE
 
 /* Bank of tiles. */
-#define numsetBank 0
+#define NumsetBank 0
 /* Start of tile array. */
-extern const unsigned char numset[];
+extern const unsigned char Numset[];
 
 #endif
 
