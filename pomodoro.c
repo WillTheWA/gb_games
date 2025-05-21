@@ -18,11 +18,11 @@
 #define SPRITE_SEC_R 4
 // Screen pixel positions (Sequential 8)
 #define SPRITE_Y 89
-#define SPRITE_MIN_L_X 80
-#define SPRITE_MIN_R_X 88
-#define SPRITE_COLON_X 96
-#define SPRITE_SEC_L_X 104
-#define SPRITE_SEC_R_X 112
+#define SPRITE_MIN_L_X 90
+#define SPRITE_MIN_R_X 98
+#define SPRITE_COLON_X 106
+#define SPRITE_SEC_L_X 114
+#define SPRITE_SEC_R_X 122
 
 // Time delay function
 void pdelay(UINT8 numloops) {
@@ -140,7 +140,7 @@ void main(void) {
         // Set sprite tiles (digits are 0–9, and you loaded Numset at 227)
         set_sprite_tile(SPRITE_MIN_L, min_digits[0]);
         set_sprite_tile(SPRITE_MIN_R, min_digits[1]);
-        set_sprite_tile(SPRITE_COLON, 238);
+        set_sprite_tile(SPRITE_COLON, 237);
         set_sprite_tile(SPRITE_SEC_L, sec_digits[0]);
         set_sprite_tile(SPRITE_SEC_R, sec_digits[1]);
 
