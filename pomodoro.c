@@ -99,8 +99,8 @@ void splash_screen() {
 
 // Convert 2-digit number (like minutes or seconds) to 2 tiles
 void convert_2digit_digits(unsigned int num, unsigned char* out) {
-    out[0] = (num / 10) % 10;
-    out[1] = num % 10;
+    out[0] = NUM_OFFSET + ((num / 10) % 10);
+    out[1] = NUM_OFFSET + (num % 10);
 }
 
 // Entry point
