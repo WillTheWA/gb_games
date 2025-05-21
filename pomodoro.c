@@ -15,6 +15,19 @@
 #define TIMER_4X 16
 #define TIMER_Y 9
 #define NUM_OFFSET 227
+// Timer sprite IDs
+#define SPRITE_MIN_L 0
+#define SPRITE_MIN_R 1
+#define SPRITE_COLON 2
+#define SPRITE_SEC_L 3
+#define SPRITE_SEC_R 4
+// Screen pixel positions (Sequential 8)
+#define SPRITE_Y 80
+#define SPRITE_MIN_L_X 64
+#define SPRITE_MIN_R_X 72
+#define SPRITE_COLON_X 80
+#define SPRITE_SEC_L_X 88
+#define SPRITE_SEC_R_X 96
 
 // Number lookup table
 unsigned char number_tiles[10] = {
@@ -104,14 +117,15 @@ void splash_screen() {
 }
 
 // Convert 2-digit number (like minutes or seconds) to 2 tiles
-void convert_2digit_to_tiles(unsigned int num, unsigned char* out) {
-    out[0] = number_tiles[(num / 10) % 10];
-    out[1] = number_tiles[num % 10];
+void convert_2digit_digits(unsigned int num, unsigned char* out) {
+    out[0] = (num / 10) % 10;
+    out[1] = num % 10;
 }
 
 // Entry point
 void main(void) {
     SHOW_BKG;
+    SHOW_SPRITES;
     DISPLAY_ON;
 
     clear_screen();  // Clear with blank tiles
@@ -123,8 +137,8 @@ void main(void) {
     // Draw background map
     set_bkg_tiles(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, background_map);
     
-    // Load Numset after background map
-    set_bkg_data(227, 12, Numset);
+    // Load Numset after background map as sprites for positioning
+    set_sprite_data(227, 12, Numset);
 
     // Timer start time
     unsigned int minutes = 25;
@@ -132,26 +146,29 @@ void main(void) {
     unsigned int cycle = 0;
 
     // Set min and sec tiles
-    unsigned char min_tiles[2];
-    unsigned char sec_tiles[2];
+    unsigned char min_digits[2];
+    unsigned char sec_digits[2];
 
     fadein(7);
 
     while (1) {
         // Convert minutes and seconds to tile data
-        convert_2digit_to_tiles(minutes, min_tiles);
-        convert_2digit_to_tiles(seconds, sec_tiles);
+        convert_2digit_digits(minutes, min_digits);
+        convert_2digit_digits(seconds, sec_digits);
 
-        // Set background tiles for MM:SS at the right positions
-        set_bkg_tiles(TIMER_1X, TIMER_Y, 1, 1, &min_tiles[0]);
-        set_bkg_tiles(TIMER_2X, TIMER_Y, 1, 1, &min_tiles[1]);
+        // Set sprite tiles (digits are 0–9, and you loaded Numset at 227)
+        set_sprite_tile(SPRITE_MIN_L, min_digits[0]);
+        set_sprite_tile(SPRITE_MIN_R, min_digits[1]);
+        set_sprite_tile(SPRITE_COLON, 10);
+        set_sprite_tile(SPRITE_SEC_L, sec_digits[0]);
+        set_sprite_tile(SPRITE_SEC_R, sec_digits[1]);
 
-        // Colon in between MM and SS (use tile 238, or whatever colon is)
-        unsigned char colon_map[] = {238};
-	set_bkg_tiles(14, TIMER_Y, 1, 1, colon_map);  // colon tile
-
-        set_bkg_tiles(TIMER_3X, TIMER_Y, 1, 1, &sec_tiles[0]);
-        set_bkg_tiles(TIMER_4X, TIMER_Y, 1, 1, &sec_tiles[1]);
+        // Move sprites to fixed positions
+        move_sprite(SPRITE_MIN_L, SPRITE_MIN_L_X, SPRITE_Y);
+        move_sprite(SPRITE_MIN_R, SPRITE_MIN_R_X, SPRITE_Y);
+        move_sprite(SPRITE_COLON, SPRITE_COLON_X, SPRITE_Y);
+        move_sprite(SPRITE_SEC_L, SPRITE_SEC_L_X, SPRITE_Y);
+        move_sprite(SPRITE_SEC_R, SPRITE_SEC_R_X, SPRITE_Y);
 
         // Delay ~1 second (this is a rough approximation)
         pdelay(60);
