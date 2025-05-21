@@ -39,7 +39,7 @@ void pdelay(UINT8 numloops) {
 }
 
 // Screen fadeout
-void fadeout() {
+void fadeout(UINT8 delay) {
     for(int i = 0; i < 4; i++) {
         switch(i) {
 	    case 0:
@@ -55,12 +55,12 @@ void fadeout() {
                 BGP_REG = 0xFF;
                 break;		
 	}
-	pdelay(10);
+	pdelay(delay);
     }
 }
 
 // Screen fadein
-void fadein() {
+void fadein(UINT8 delay) {
     for(int i = 0; i < 4; i++) {
         switch(i) {
 	    case 0:
@@ -73,7 +73,7 @@ void fadein() {
 		BGP_REG = 0xE4;
 		break;		
 	}
-	pdelay(10);
+	pdelay(delay);
     }
 }
 
@@ -100,7 +100,7 @@ void splash_screen() {
 
     // Wait until start is pressed
     waitpad(J_START);
-    fadeout();
+    fadeout(7);
 }
 
 // Convert 2-digit number (like minutes or seconds) to 2 tiles
@@ -135,7 +135,7 @@ void main(void) {
     unsigned char min_tiles[2];
     unsigned char sec_tiles[2];
 
-    fadein();
+    fadein(7);
 
     while (1) {
         // Convert minutes and seconds to tile data
@@ -154,14 +154,12 @@ void main(void) {
         set_bkg_tiles(TIMER_4X, TIMER_Y, 1, 1, &sec_tiles[1]);
 
         // Delay ~1 second (this is a rough approximation)
-        for (int i = 0; i < 60; i++) {
-            wait_vbl_done();
-        }
+        pdelay(60);
 
         // Countdown logic
         if (seconds == 0) {
             if (minutes == 0) {
-                // Timer done
+                // Timer done manage cycle
                 cycle++;
                 if (cycle == 1 || cycle == 3 || cycle == 5) {
                     minutes = 5;
