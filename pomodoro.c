@@ -17,12 +17,12 @@
 #define SPRITE_SEC_L 3
 #define SPRITE_SEC_R 4
 // Screen pixel positions (Sequential 8)
-#define SPRITE_Y 81
-#define SPRITE_MIN_L_X 64
-#define SPRITE_MIN_R_X 72
-#define SPRITE_COLON_X 80
-#define SPRITE_SEC_L_X 88
-#define SPRITE_SEC_R_X 96
+#define SPRITE_Y 89
+#define SPRITE_MIN_L_X 80
+#define SPRITE_MIN_R_X 88
+#define SPRITE_COLON_X 96
+#define SPRITE_SEC_L_X 104
+#define SPRITE_SEC_R_X 112
 
 // Time delay function
 void pdelay(UINT8 numloops) {
