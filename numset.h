@@ -10,7 +10,7 @@
   Compression          : None.
   Counter              : None.
   Tile size            : 8 x 8
-  Tiles                : 0 to 12
+  Tiles                : 1 to 11
 
   Palette colors       : None.
   SGB Palette          : None.
@@ -26,9 +26,9 @@
 #define __numset_h_INCLUDE
 
 /* Bank of tiles. */
-#define NumsetBank 0
+#define numsetBank 0
 /* Start of tile array. */
-extern const unsigned char Numset[];
+extern const unsigned char numset[];
 
 #endif
 
